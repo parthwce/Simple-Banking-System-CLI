@@ -7,15 +7,27 @@ def create_account(account_id):
     print(f"Account {account_id} created.")
 
 def deposit(account_id, amount):
-    accounts[account_id] += amount
-    print(f"Deposited {amount} to account {account_id}.")
+    if account_id in accounts:
+        accounts[account_id] += amount
+        print(f"Deposited {amount} to account {account_id}.")
+    else:
+        print(f"Account {account_id} does not exist.")
 
 def withdraw(account_id, amount):
-    accounts[account_id] -= amount
-    print(f"Withdrew {amount} from account {account_id}.")
+    if account_id in accounts:
+        if accounts[account_id] >= amount:
+            accounts[account_id] -= amount
+            print(f"Withdrew {amount} from account {account_id}.")
+        else:
+            print(f"Withdrawal failed: Insufficient funds in account {account_id}.")
+    else:
+        print(f"Account {account_id} does not exist.")
 
 def balance(account_id):
-    print(f"Balance for account {account_id}: {accounts[account_id]}")
+    if account_id in accounts:
+        print(f"Balance for account {account_id}: {accounts[account_id]}")
+    else:
+        print(f"Account {account_id} does not exist.")
 
 def main():
     if len(sys.argv) < 3:
